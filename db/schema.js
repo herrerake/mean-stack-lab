@@ -21,7 +21,7 @@ var AnswerSchema = new Schema({
 var QuestionSchema = new Schema({
   title: String,
   body: String,
-  answers: [ {type: Schema.ObjectId, ref: "Answers"} ]
+  answers: [AnswerSchema]
 })
 
 var Question = mongoose.model("Question", QuestionSchema)
