@@ -30,8 +30,11 @@ app.get("/questions/:title", (req, res) => {
   })
 })
 
-app.post("/questions/:title", (req, res) => {
-
+app.put("/questions/:title", (req, res) => {
+  Question.findOneAndUpdate({title: req.params.title},
+  req.body.question, {new: true}).then(function(question){
+    res.json(question)
+  })
 })
 
 app.post("/questions", (req, res) => {
@@ -39,3 +42,10 @@ app.post("/questions", (req, res) => {
       res.json(req.body)
     })
   })
+
+app.delete("/questions/:title", function(req, res){
+  Question.findOneAndRemove({title:
+  req.params.title}).then(function(){
+    res.json({ success: true })
+  })
+})
