@@ -2,6 +2,7 @@ var express = require("express");
 var app = express();
 var Schema = require("./db/schema.js")
 var bodyParser = require('body-parser')
+var hbs = require("express-handlebars")
 
 
 
@@ -11,12 +12,19 @@ var Answer = Schema.Answer
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 
+app.set("view engine", "hbs");
+app.engine("hbs", hbs({
+  extname:    ".hbs",
+  partialsDir: "views/",
+  layoutsDir:  "views/",
+  defaultLayout:  "layout"
+}))
+
+app.use("/assets", express.static("public"))
 
 app.listen(4000, () => {
   console.log("app listening on port 4000");
 });
-
-
 
 app.get("/questions", (req, res) => {
   Question.find({}).then(function(questions) {
@@ -48,4 +56,8 @@ app.delete("/questions/:title", function(req, res){
   req.params.title}).then(function(){
     res.json({ success: true })
   })
+})
+
+app.get("/", function(req, res){
+  res.render("questions")
 })
