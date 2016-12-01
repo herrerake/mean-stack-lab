@@ -9,8 +9,7 @@ var hbs = require("express-handlebars")
 var Question = Schema.Question
 var Answer = Schema.Answer
 
-app.use(bodyParser.urlencoded({extended: true}))
-app.use(bodyParser.json())
+app.use(bodyParser.json({extended: true}))
 
 app.set("view engine", "hbs");
 app.engine("hbs", hbs({
@@ -40,13 +39,13 @@ app.get("/questions/:title", (req, res) => {
 
 app.put("/questions/:title", (req, res) => {
   Question.findOneAndUpdate({title: req.params.title},
-  req.body.question, {new: true}).then(function(question){
+  req.body, {new: true}).then(function(question){
     res.json(question)
   })
 })
 
 app.post("/questions", (req, res) => {
-    Question.create(req.body.question).then(function(question) {
+    Question.create(req.body).then(function(question) {
       res.json(req.body)
     })
   })

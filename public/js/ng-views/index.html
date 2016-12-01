@@ -6,8 +6,8 @@
   </h3>
 </div>
 
-<form action="/questions" method="post">
-  <input type="text" name="question[title]" placeholder="Title" />
-  <input type="text" name="question[body]" placeholder="Body" />
+<form ng-submit="vm.create()" action="/questions" method="post">
+  <input type="text" ng-model="vm.newQuestion.title" name="question[title]" placeholder="Title" />
+  <input type="text"  ng-model= "vm.newQuestion.body" name="question[body]" placeholder="Body" />
   <button type="submit">Ask a Question</button>
 </form>

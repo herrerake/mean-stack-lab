@@ -50,9 +50,18 @@ angular
 
   function indexController ($state, Question) {
     this.questions = Question.query()
+    this.newQuestion = new Question()
+    this.create = function() {
+      this.newQuestion.$save().then(function(question) {
+        $state.go("show", {title: question.title})
+      })
+    }
   }
 
 
   function showController ($stateParams, Question) {
     this.question = Question.get({title: $stateParams.title})
+    this.update = () => {
+      this.question.$update({title: $stateParams.title})
+    }
   }
