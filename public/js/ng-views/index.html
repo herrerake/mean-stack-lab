@@ -1,0 +1,13 @@
+<h2>All Questions</h2>
+
+<div class="questions">
+  <h3 data-ng-repeat="question in vm.questions">
+    <a data-ui-sref="show({title: question.title})">{{question.title}}</a>
+  </h3>
+</div>
+
+<form action="/questions" method="post">
+  <input type="text" name="question[title]" placeholder="Title" />
+  <input type="text" name="question[body]" placeholder="Body" />
+  <button type="submit">Ask a Question</button>
+</form>
