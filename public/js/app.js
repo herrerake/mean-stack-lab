@@ -16,6 +16,11 @@ angular
     "Question",
     indexController
   ])
+  .controller("showCtrl", [
+    "$stateParams",
+    "Question",
+    showController
+  ])
 
   function Router ($stateProvider) {
     $stateProvider
@@ -29,6 +34,12 @@ angular
         controller: "indexCtrl",
         controllerAs: "vm"
       })
+      .state("show", {
+        url: "/questions/:title",
+        templateUrl: "/assets/js/ng-views/show.html",
+        controller: "showCtrl",
+        controllerAs: "vm"
+      })
   }
 
   function Question ($resource) {
@@ -39,4 +50,9 @@ angular
 
   function indexController ($state, Question) {
     this.questions = Question.query()
+  }
+
+
+  function showController ($stateParams, Question) {
+    this.question = Question.get({title: $stateParams.title})
   }
